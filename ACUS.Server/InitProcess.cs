@@ -4,6 +4,7 @@ using ACUS.Shared;
 using LiteX.DbHelper.Core;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -36,8 +37,15 @@ namespace ACUS.Server
             var processedRecords = 0;
             foreach (XElement ele in elements)
             {
-                var measurement = ele.Attribute("name").Value;
-                //var measurement = ele.Attribute("exposedName").Value;
+                string measurement;
+                if(Convert.ToBoolean(ConfigurationManager.AppSettings["IsDisplayName"]))
+                {
+                    measurement = ele.Attribute("name").Value;
+                }
+                else
+                {
+                    measurement = ele.Attribute("exposedName").Value;
+                }
                 var returnType = ele.Attribute("returnType").Value;
                 XElement queriesEle = ACUSConstants.SelectedDatabaseType == DatabaseType.Oracle 
                                                         ? ele.Element("OracleQueries")
