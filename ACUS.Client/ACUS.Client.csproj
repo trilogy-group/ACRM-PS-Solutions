@@ -107,6 +107,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Error.txt" />
     <Content Include="icon.ico" />
     <Content Include="Images\Close.png" />
     <Content Include="Images\icon.ico" />

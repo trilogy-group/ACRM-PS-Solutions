@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_09784979D94FB048214BE8D9BD031B22"
+        "OwnerKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_09784979D94FB048214BE8D9BD031B22"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0B71778092FADBA02229B0BECF7FE6AC"
         "OwnerKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
         "MsmSig" = "8:_UNDEFINED"
@@ -51,12 +63,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_311D1798EFF04D78A01AA8E8B6AF745F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4E8106523A71FAE9ABD458FDF6D1F4A7"
         "OwnerKey" = "8:_0B71778092FADBA02229B0BECF7FE6AC"
         "MsmSig" = "8:_UNDEFINED"
@@ -76,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_5DA79CB96438458F6353B36EC5F89F1D"
-        "OwnerKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
+        "OwnerKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,13 +118,7 @@
         "Entry"
         {
         "MsmKey" = "8:_A247E3D6418D5E8629520698C4CA18BA"
-        "OwnerKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "OwnerKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -141,18 +141,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BE05A5076DD52CA4CF1D4D3F9DBC1F2E"
-        "OwnerKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BE05A5076DD52CA4CF1D4D3F9DBC1F2E"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C5D1447989F8596208428CE0F669C52A"
         "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
@@ -160,7 +148,7 @@
         "Entry"
         {
         "MsmKey" = "8:_C5D1447989F8596208428CE0F669C52A"
-        "OwnerKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
+        "OwnerKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -183,14 +171,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C9A63BC2B2A1E6B3A8948E1DCC431F98"
-        "OwnerKey" = "8:_5DA79CB96438458F6353B36EC5F89F1D"
+        "MsmKey" = "8:_D1B8A455190FA831E322CBE6641528A8"
+        "OwnerKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D1B8A455190FA831E322CBE6641528A8"
-        "OwnerKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
+        "MsmKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F3904A4B56924A06A7384F414A918F5B"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -208,13 +202,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A489BA322CE32E3E07DAC27E49B7C6F1"
+        "OwnerKey" = "8:_EBEE5B1547C5A868073DC036D3A69CE1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE05A5076DD52CA4CF1D4D3F9DBC1F2E"
+        "OwnerKey" = "8:_09784979D94FB048214BE8D9BD031B22"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -370,6 +364,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_09784979D94FB048214BE8D9BD031B22"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ACUS.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_09784979D94FB048214BE8D9BD031B22"
+                    {
+                    "Name" = "8:ACUS.Shared.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ACUS.Shared.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0B71778092FADBA02229B0BECF7FE6AC"
             {
             "AssemblyRegister" = "3:1"
@@ -430,26 +455,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_311D1798EFF04D78A01AA8E8B6AF745F"
-            {
-            "SourcePath" = "8:..\\ACUS.Client\\bin\\Release\\Error.txt"
-            "TargetName" = "8:Error.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4E8106523A71FAE9ABD458FDF6D1F4A7"
@@ -616,37 +621,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A489BA322CE32E3E07DAC27E49B7C6F1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ACUS.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A489BA322CE32E3E07DAC27E49B7C6F1"
-                    {
-                    "Name" = "8:ACUS.Server.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ACUS.Server.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A91FF4DDD273479D76EEB96F716A8FEC"
             {
             "AssemblyRegister" = "3:1"
@@ -692,37 +666,6 @@
                     }
                 }
             "SourcePath" = "8:Oracle.ManagedDataAccess.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BE05A5076DD52CA4CF1D4D3F9DBC1F2E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ACUS.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BE05A5076DD52CA4CF1D4D3F9DBC1F2E"
-                    {
-                    "Name" = "8:ACUS.Shared.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ACUS.Shared.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
@@ -831,6 +774,57 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EBEE5B1547C5A868073DC036D3A69CE1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ACUS.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_EBEE5B1547C5A868073DC036D3A69CE1"
+                    {
+                    "Name" = "8:ACUS.Server.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ACUS.Server.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F3904A4B56924A06A7384F414A918F5B"
+            {
+            "SourcePath" = "8:..\\ACUS.Client\\Error.txt"
+            "TargetName" = "8:Error.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F3DAD92E47BA43DC9209B057294EB670"
@@ -1467,7 +1461,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_824B7FCB77CA4262BAEC823F5829FDB1"
             {
-            "SourcePath" = "8:..\\ACUS.Client\\obj\\Release\\ACUS.Client.exe"
+            "SourcePath" = "8:..\\ACUS.Client\\obj\\Debug\\ACUS.Client.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
