@@ -269,9 +269,9 @@
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(61, 121);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(191, 28);
+            this.label6.Size = new System.Drawing.Size(197, 28);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Crm Database Name";
+            this.label6.Text = "CRM Database Name";
             // 
             // txtCRMDBInstance
             // 
@@ -863,7 +863,7 @@
             this.pnlCRMDBUserHelp.Controls.Add(this.pictureBox4);
             this.pnlCRMDBUserHelp.Controls.Add(this.label17);
             this.pnlCRMDBUserHelp.Controls.Add(this.button3);
-            this.pnlCRMDBUserHelp.Location = new System.Drawing.Point(39, 61);
+            this.pnlCRMDBUserHelp.Location = new System.Drawing.Point(137, 71);
             this.pnlCRMDBUserHelp.Name = "pnlCRMDBUserHelp";
             this.pnlCRMDBUserHelp.Size = new System.Drawing.Size(900, 600);
             this.pnlCRMDBUserHelp.TabIndex = 9;
