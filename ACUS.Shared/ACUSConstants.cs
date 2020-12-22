@@ -32,6 +32,7 @@ namespace ACUS.Shared
         public static List<string> LstOutputData { get; set; }
 
         public static string ResultFilePath { get; set; }
+        public static string CurrentACUSCase { get; set; }
     }
 
     public enum DatabaseType

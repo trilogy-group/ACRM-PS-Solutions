@@ -51,6 +51,7 @@ namespace ACUS.Server
                                                         ? ele.Element("OracleQueries")
                                                         : ele.Element("SqlQueries");
 
+                ACUSConstants.CurrentACUSCase = measurement;
                 var measurementRes = new StringBuilder(measurement);
                 measurementRes.Append(";");
 
@@ -65,8 +66,8 @@ namespace ACUS.Server
                
                 ACUSConstants.LstOutputData.Add(Convert.ToString(measurementRes).TrimEnd(';'));
                 processedRecords++;
-                var percentage = (processedRecords / totalRecords) * 100;
-                yield return percentage;
+                var percentage = (processedRecords * 1.0 / totalRecords) * 100;
+                yield return Convert.ToInt32(percentage);
             }
         }
 

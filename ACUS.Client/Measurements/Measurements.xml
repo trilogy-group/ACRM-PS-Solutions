@@ -243,12 +243,12 @@
         WHERE Neu >= CAST(FORMAT(DATEADD(YEAR, -1, GETDATE()),'yyyyMMddHHmmssfff') AS BIGINT)
       </Query>
       <Query isDesigner="false">
-        SELECT ISNULL(CEILING((SUM(ISNULL(DkLaenge, 0))*1.0/(1024*1024*1024))), 0)
+        SELECT ISNULL(CEILING((SUM(CAST(ISNULL(DkLaenge, 0)AS BIGINT))*1.0/(1024*1024*1024))), 0)
         FROM {tablePrefix}D1
       </Query>
       <Query isDesigner="false">
         WITH CTE_D1 AS (
-        SELECT (SUM(ISNULL(DkLaenge, 0))*1.0/(1024*1024*1024)) AS Size, SUBSTRING(CAST(Neu AS VARCHAR(20)), 1, 4) AS [Year]
+        SELECT (SUM(CAST(ISNULL(DkLaenge, 0)AS BIGINT))*1.0/(1024*1024*1024)) AS Size, SUBSTRING(CAST(Neu AS VARCHAR(20)), 1, 4) AS [Year]
         FROM {tablePrefix}D1
         WHERE Neu BETWEEN CAST(format(DATEADD(year, -3, GETDATE()),'yyyyMMddHHmmssfff') as bigint)
         AND CAST(format(getdate(),'yyyyMMddHHmmssfff') as bigint)

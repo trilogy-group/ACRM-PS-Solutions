@@ -1,4 +1,5 @@
 using ACUS.Logging;
+using ACUS.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace ACUS.Client
                 String.Format(
                     "{0}\r\n" + "{1}\r\n" + "{2}\r\n", DateTime.Now,
                     ((Exception)e.ExceptionObject).Message, ((Exception)e.ExceptionObject).StackTrace);
-            MessageBox.Show(((Exception)e.ExceptionObject).Message, @"Unexpected error");
+            MessageBox.Show(((Exception)e.ExceptionObject).Message, @"Unexpected error in " + ACUSConstants.CurrentACUSCase);
             Logger.Log(message);
         }
 
@@ -53,7 +54,7 @@ namespace ACUS.Client
                 String.Format(
                     "{0}\r\n" + "{1}\r\n" + "{2}\r\n", DateTime.Now,
                     e.Exception.Message, e.Exception.StackTrace);
-            MessageBox.Show(e.Exception.Message, @"Unexpected error");
+            MessageBox.Show(e.Exception.Message, @"Unexpected error in " + ACUSConstants.CurrentACUSCase);
             Logger.Log(message);
         }
     }
