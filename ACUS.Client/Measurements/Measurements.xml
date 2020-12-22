@@ -236,6 +236,17 @@
       <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
     </OracleQueries>
   </Measurement>
+  <Measurement exposedName="ACUS-22" name="Integration to Document Store implemented through Connector" returnType="bool">
+    <SqlQueries>
+      <Query isDesigner="false">
+        SELECT 0
+      </Query>      
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+    </OracleQueries>
+  </Measurement>
   <Measurement exposedName="ACUS-23" name="Not too much documents?" returnType="int">
     <SqlQueries>
       <Query isDesigner="false">
