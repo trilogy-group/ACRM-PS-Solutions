@@ -27,9 +27,11 @@ namespace ACUS.Client
         {
             try
             {
-                if (!ValidateForm())
+                string errorMsg = string.Empty;
+                if (!ValidateForm(out errorMsg))
                 {
-                    MessageBox.Show("Please enter a data in textbox", "Error");
+                    //MessageBox.Show("Please enter a data in textbox", "Error");
+                    MessageBox.Show(errorMsg, "Error");
                     return;
                 }
                 UseWaitCursor = true;
@@ -58,17 +60,67 @@ namespace ACUS.Client
             }
         }
 
-        private bool ValidateForm()
+        private bool ValidateForm(out string msg)
         {
-            return string.IsNullOrEmpty(ACUSConstants.CRMDataDBInstance) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDataDBName) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDataDBUser) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDataDBPassword) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBInstance) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBName) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBUser) ||
-                    string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBPassword) ||
-                    string.IsNullOrEmpty(ACUSConstants.TablePrefix) ? false : true;
+            //return string.IsNullOrEmpty(ACUSConstants.CRMDataDBInstance) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDataDBName) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDataDBUser) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDataDBPassword) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBInstance) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBName) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBUser) ||
+            //        string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBPassword) ||
+            //        string.IsNullOrEmpty(ACUSConstants.TablePrefix) ? false : true;
+            if (string.IsNullOrEmpty(ACUSConstants.CRMDataDBInstance))
+            {
+                msg = "Please Enter value for CRM Database Instance";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDataDBName))
+            {
+                msg = "Please Enter value for CRM Database Name";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDataDBUser))
+            {
+                msg = "Please Enter value for CRM Database Username";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDataDBPassword))
+            {
+                msg = "Please Enter value for CRM Database Password";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBInstance))
+            {
+                msg = "Please Enter value for CRM Designer Database Instance";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBName))
+            {
+                msg = "Please Enter value for CRM Designer Database Name";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBUser))
+            {
+                msg = "Please Enter value for CRM Designer Database Username";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.CRMDesignerDBPassword))
+            {
+                msg = "Please Enter value for CRM Designer Database Password";
+                return false;
+            }
+            else if (string.IsNullOrEmpty(ACUSConstants.TablePrefix))
+            {
+                msg = "Please Enter value for CRM Database Table Prefix";
+                return false;
+            }
+            else
+            {
+                msg = string.Empty;
+                return true;
+            }
         }
 
         private void rbd_CheckedChanged(object sender, EventArgs e)

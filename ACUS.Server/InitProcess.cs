@@ -59,7 +59,9 @@ namespace ACUS.Server
                 {
                     var q = query.Value;
                     var isDesigner = Convert.ToBoolean(query.Attribute("isDesigner").Value);
-                    var res = ExecuteQuery(q, returnType, isDesigner);
+                    var prefix = query.Attribute("prefix").Value;
+                    var postfix = query.Attribute("postfix").Value;
+                    var res = ExecuteQuery(q, returnType, isDesigner, prefix, postfix);
                     measurementRes.Append(res);
                     measurementRes.Append(";");
                 }
@@ -71,7 +73,7 @@ namespace ACUS.Server
             }
         }
 
-        private object ExecuteQuery(string query, string returnType, bool isDesigner)
+        private object ExecuteQuery(string query, string returnType, bool isDesigner, string prefix, string postfix)
         {
             object returnValue = null;
             if (!string.IsNullOrEmpty(query))
@@ -83,11 +85,15 @@ namespace ACUS.Server
                 {
                     if(returnType.Equals("int"))
                     {
-                        returnValue = dt.Rows[0][0];
+                        returnValue = prefix + dt.Rows[0][0] + postfix;
                     }
                     else if(returnType.Equals("bool"))
                     {
-                        returnValue = Convert.ToBoolean(dt.Rows[0][0]) ? "Yes" : "No";
+                        returnValue = Convert.ToBoolean(dt.Rows[0][0]) ? prefix + "Yes" + postfix : "No";
+                    }
+                    else if (returnType.Equals("string"))
+                    {
+                        returnValue = Convert.ToString(dt.Rows[0][0]) == "0" ? "N/A" : prefix + Convert.ToString(dt.Rows[0][0]) + postfix;
                     }
                 }
             }
