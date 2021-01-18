@@ -2059,6 +2059,7 @@
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}AK
+        WHERE AktVariante = 2
       </Query>
     </SqlQueries>
     <OracleQueries>
@@ -2082,6 +2083,18 @@
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}AK
         WHERE Aktivitat = 14
+      </Query>
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+    </OracleQueries>
+  </Measurement>
+  <Measurement exposedName="E-mail Campaign" name="E-mail Campaign" returnType="string">
+    <SqlQueries>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}CM
+        WHERE KampTyp = 3
       </Query>
     </SqlQueries>
     <OracleQueries>
@@ -2236,7 +2249,7 @@
   <Measurement exposedName="Count Station" name="Count Station" returnType="string">
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
-        SELECT COUNT(DISTINCT StationNr) FROM {tablePrefix}01
+        SELECT COUNT(*) FROM {tablePrefix}STA
       </Query>
     </SqlQueries>
     <OracleQueries>
