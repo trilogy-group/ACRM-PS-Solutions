@@ -2022,7 +2022,7 @@
       <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="Installed Base" name="Installed Base" returnType="string">
+  <Measurement exposedName="Count Installed Base" name="Count Installed Base" returnType="string">
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}IB
