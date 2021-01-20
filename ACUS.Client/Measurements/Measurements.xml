@@ -2090,7 +2090,7 @@
       <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="E-mail Campaign" name="E-mail Campaign" returnType="string">
+  <Measurement exposedName="Count Newsletter Campaign" name="Count Newsletter Campaign" returnType="string">
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}CM
