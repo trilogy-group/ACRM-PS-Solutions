@@ -256,3 +256,4 @@ paket-files/
 
 #temp folders
 .temp
+/ACUS.Setup/Release.zip

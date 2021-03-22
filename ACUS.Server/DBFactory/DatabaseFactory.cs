@@ -35,7 +35,8 @@ namespace ACUS.Server.DBFactory
                     dbHelper = new SqlHelper(ACUSConstants.DesDBConnectionString);
                     break;
                 case DatabaseType.Oracle:
-                    dbHelper = new OracleHelper(ACUSConstants.DesDBConnectionString);
+                    //dbHelper = new OracleHelper(ACUSConstants.DesDBConnectionString);
+                    dbHelper = new SqlHelper(ACUSConstants.DesDBConnectionString);
                     break;
                 default:
                     dbHelper = new SqlHelper(ACUSConstants.DesDBConnectionString);

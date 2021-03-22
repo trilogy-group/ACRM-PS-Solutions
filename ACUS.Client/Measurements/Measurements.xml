@@ -330,11 +330,12 @@
         END) AS ActivitiesWithObjectives
         FROM {tablePrefix}MA
         )
-        SELECT ISNULL(CEILING(ActivitiesWithObjectives*100/TotalActivities), 0)
+        
+        SELECT NVL(CEIL(ActivitiesWithObjectives*100/TotalActivities), 0)
         FROM CTE_MA
       </Query>
       <Query isDesigner="false" prefix="" postfix="">
-        WITH CTE_MA AS (
+       WITH CTE_MA AS (
         SELECT COUNT(*) As TotalActivities,
         SUM(CASE WHEN F5004 != 0
         THEN 1
@@ -342,7 +343,8 @@
         END) AS ActivitiesWithAchievements
         FROM {tablePrefix}MA
         )
-        SELECT ISNULL(CEILING(ActivitiesWithAchievements*100/TotalActivities), 0)
+        
+        SELECT NVL(CEIL(ActivitiesWithAchievements*100/TotalActivities), 0)
         FROM CTE_MA
       </Query>
     </OracleQueries>
@@ -358,7 +360,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false" prefix="" postfix="">
+      <Query isDesigner="false" prefix="" postfix="">        
         SELECT COUNT(*)
         FROM {tablePrefix}A1 a1
         INNER JOIN {tablePrefix}XK xk
@@ -619,8 +621,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SV) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>      
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-38" name="Is a graphical relationship view, which shows direct and indirect relationships, available?" returnType="bool">
@@ -649,8 +655,28 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_MENUITEM pmi
+        ON sc.configid = pmi.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUENTRY pme
+        ON pmi.menuid = pme.menuid
+        where pmi.visible = 1 AND (pmi.label like '%A_CircleOfInfluence%' OR pme.menuentry like '%A_CircleOfInfluence%')) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-39" name="Are at least 2 Relationship Levels represented in the graph?" returnType="bool">
@@ -666,8 +692,15 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}PB pb1
+        WHERE EXISTS(SELECT * FROM {tablePrefix}PB pb2
+        WHERE pb2.ID_FI = pb1.ID_FI2
+        OR pb2.ID_PE = pb1.ID_PE2)) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>      
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-40" name="Is customer behavioral data stored per organisation and natural person and reported on through the Customer Journey timeline?" returnType="bool">
@@ -696,8 +729,28 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_HEADER ph
+        ON sc.configid = ph.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_HEADER_BUTTONS phb
+        ON ph.headerid = phb.headerid
+        WHERE phb.directbuttonname in ('TE_OJ_Timeline', 'TE_FI_AccountTimeline', 'TE_FI_MarketingTimeline', 'TE_Y1_Timeline')) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-42" name="For all contact moments in the customer journey, is the system checking with the customer how they experienced the contact?" returnType="bool">
@@ -705,8 +758,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-43" name="Are these NPS scores stored in the system and provided per activity, per organisation and per natural person?" returnType="bool">
@@ -714,8 +766,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-44" name="Are NPS scores reported on per region, department, organisation and natural person and reported on?" returnType="bool">
@@ -723,8 +774,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-45" name="Are the NPS scores shown in the Customer Journey Visualisation timeline?" returnType="bool">
@@ -732,8 +782,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-46" name="For how much of the accounts has a collaboration link been set up?" returnType="int">
@@ -741,8 +790,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-47" name="Is a news feed set up to populate the sales intelligence panel on the customer detail page?" returnType="bool">
@@ -750,8 +798,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-48" name="Is a news feed set up to populate the sales intelligence panel on the opportunity detail page?" returnType="bool">
@@ -759,8 +806,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-49" name="Is a news feed set up to populate the sales intelligence panel on the home page for a sales rep?" returnType="bool">
@@ -768,8 +814,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-50" name="Is a news feed set up to populate the sales intelligence panel on the competitor detail page?" returnType="bool">
@@ -777,8 +822,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-51" name="Business Graph set up?" returnType="bool">
@@ -786,8 +830,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-52" name="Is automatic route planning in place?" returnType="bool">
@@ -838,8 +881,50 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('VisitPlanning')
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('VisitPlanning')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-54" name="Are routes adjusted based on data and events?" returnType="bool">
@@ -849,8 +934,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-55" name="How much sources and events have been set up to influence the planning of routes?" returnType="int">
@@ -860,8 +944,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-56" name="Are accounts and leads automatically assigned based on allocation rules?" returnType="bool">
@@ -874,8 +957,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SD) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-57" name="Do reps have the functionality to manually plan routes between relations based on proximity?" returnType="bool">
@@ -897,8 +984,21 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}ID
+        WHERE ID IN
+        (
+        SELECT BeaId
+        FROM {tablePrefix}SV
+        WHERE
+        ID_FI > 0
+        AND Latitude > 0
+        AND Longitude > 0
+        )) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-58" name="Planning values are present for previous year, current year and next year" returnType="bool">
@@ -935,8 +1035,36 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*)
+        FROM {tablePrefix}FC FC
+        WHERE Jahr = EXTRACT(YEAR FROM SYSTIMESTAMP) - 1
+        AND (Soll_M1 > 0 OR Soll_M2 > 0 OR Soll_M3 > 0 OR Soll_M4 > 0 OR Soll_M5 > 0 OR Soll_M6 > 0
+        OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual  
+      </Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*)
+        FROM {tablePrefix}FC FC
+        WHERE Jahr = EXTRACT(YEAR FROM SYSTIMESTAMP)
+        AND (Soll_M1 > 0 OR Soll_M2 > 0 OR Soll_M3 > 0 OR Soll_M4 > 0 OR Soll_M5 > 0 OR Soll_M6 > 0
+        OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*)
+        FROM {tablePrefix}FC FC
+        WHERE Jahr = EXTRACT(YEAR FROM SYSTIMESTAMP) + 1
+        AND (Soll_M1 > 0 OR Soll_M2 > 0 OR Soll_M3 > 0 OR Soll_M4 > 0 OR Soll_M5 > 0 OR Soll_M6 > 0
+        OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-59" name="Agreements for current year are in place" returnType="bool">
@@ -952,8 +1080,15 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*)
+        FROM {tablePrefix}FC
+        WHERE Jahr = EXTRACT(YEAR FROM SYSTIMESTAMP)
+        AND F5000 = 3) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-60" name="Opportunity Sales Funnel is in use" returnType="bool">
@@ -982,8 +1117,28 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_MENUITEM pmi
+        ON sc.configid = pmi.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUENTRY pme
+        ON pmi.menuid = pme.menuid
+        where pmi.visible = 1 AND (pmi.label like '%TE_ID_NET_OpportunitySalesFunnel%' OR pme.menuentry like '%TE_ID_NET_OpportunitySalesFunnel%')) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-63" name="Is there an approval/reimbursement process in place?" returnType="bool">
@@ -996,8 +1151,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}B2) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-64" name="Are expenses linked to the corresponding Sales Activities?" returnType="bool">
@@ -1010,8 +1169,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}B2 WHERE TAB_GENERIC IN ('MA', 'Y1', 'PR', 'AU')) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-65" name="All accounts have their visiting hours maintained" returnType="int">
@@ -1024,8 +1187,13 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT NVL(CEIL((COUNT(DISTINCT ct.ID_FI)*100.0)/COUNT(fi.ID)), 0)
+        FROM {tablePrefix}FI fi
+        LEFT OUTER JOIN {tablePrefix}CT ct
+        ON fi.ID = ct.ID_FI AND ct.Typ = 1
+      </Query>
+      <Query isDesigner="false" prefix="" postfix="">select count(*) from {tablePrefix}FI</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-68" name="Case management process implemented to enforce required workflow?" returnType="bool">
@@ -1038,8 +1206,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}KM) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-70" name="For how much of the cases in the system has a question been generated in Jive?" returnType="int">
@@ -1049,8 +1221,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-71" name="Real time chat implemented?" returnType="bool">
@@ -1058,8 +1231,9 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-72" name="How many chats are sent on average on a monthly basis per user?" returnType="int">
@@ -1067,8 +1241,9 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-74" name="Social inbox process implemented to enforce required workflow?" returnType="bool">
@@ -1081,8 +1256,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SE) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-76" name="KB article browsing present to improve case solution efficiency and quality?" returnType="bool">
@@ -1095,8 +1274,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}U000) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-78" name="Can you assign an engineer based on the planning and availability of the field engineer?" returnType="bool">
@@ -1125,8 +1308,28 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_MENUITEM pmi
+        ON sc.configid = pmi.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUENTRY pme
+        ON pmi.menuid = pme.menuid
+        where pmi.visible = 1 AND (pmi.label like '%ID_NET_DISPATCHING_DASHBOARD%' OR pme.menuentry like '%ID_NET_DISPATCHING_DASHBOARD%')) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-79" name="is it possible to assign cases to agents and/or fields engineers based on a match between certain attributes of the case and the agent/engineer (eg. based on expertise)?" returnType="bool">
@@ -1139,8 +1342,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN ((SELECT COUNT(*) FROM {tablePrefix}SI) > 0 AND (SELECT COUNT(*) FROM {tablePrefix}MA) >0)
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-80" name="Are you storing service levels agreed in service contracts in the system, enabling you to measure solving/responding to cases based on service level compliance per customer?" returnType="bool">
@@ -1153,8 +1360,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN ((SELECT COUNT(*) FROM {tablePrefix}WR) > 0 AND (SELECT COUNT(*) FROM {tablePrefix}WP) > 0)
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-83" name="All completed service offers have a service offer report, which was sent to the customer via CRM?" returnType="int">
@@ -1168,8 +1379,13 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT NVL(CEIL(SUM(CASE WHEN F5045 = 1
+        THEN 1
+        ELSE 0
+        END) *100.0 / COUNT(*)), 0)
+        FROM {tablePrefix}PR
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-84" name="All completed service offers have an installed base item associated with them?" returnType="int">
@@ -1187,8 +1403,17 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT NVL(CEIL(SUM(CASE WHEN ib.ID_AU IS NOT NULL
+        THEN 1
+        ELSE 0
+        END) * 100.0 / COUNT(pr.ID)), 0)
+        FROM {tablePrefix}PR pr
+        LEFT OUTER JOIN {tablePrefix}AU au
+        ON au.ID_PR = pr.ID
+        LEFT OUTER JOIN {tablePrefix}IB ib
+        ON ib.ID_AU = au.ID;
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-88" name="Is Campaign Collaboration enabled?" returnType="bool">
@@ -1196,8 +1421,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-89" name="For how much of the campaigns has a collaboration link been created?" returnType="int">
@@ -1205,8 +1429,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-92" name="Is it possible to select data on all attributes in the database?" returnType="bool">
@@ -1219,8 +1442,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}FT WHERE FmtTyp=32) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-94" name="Is the system providing hints and suggestions during creation of a target group, based on patterns detected through artificial intelligence to make the campaign budget be spent more efficiently?" returnType="bool">
@@ -1228,8 +1455,7 @@
       <Query isDesigner="false" prefix="" postfix="">SELECT 0</Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-100" name="Is Surveys set up for lead qualification?" returnType="bool">
@@ -1245,8 +1471,15 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}U1 U1
+        INNER JOIN {tablePrefix}FI FI
+        ON U1.ID_FI = FI.ID
+        OR (U1.ID_GENERIC = FI.ID AND U1.LinkTyp = 'FI')) >0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-101" name="Is Predictive CRM enabled?" returnType="bool">
@@ -1256,8 +1489,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-104" name="Is Managing Events enabled?" returnType="bool">
@@ -1270,8 +1502,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}CM WHERE KampTyp = 1) > 0
+        THEN 1
+        ELSE 0
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-105" name="Is Mobile Sample Management set up?" returnType="bool">
@@ -1281,8 +1517,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-106" name="Is Mobile Property Management set up?" returnType="bool">
@@ -1312,8 +1549,29 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI_TABLET'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_MENUITEM pmi
+        ON sc.configid = pmi.configid and sc.name != 'TE_ISI_TABLET'
+        INNER JOIN PORTAL_MENUENTRY pme
+        ON pmi.menuid = pme.menuid
+        where pmi.visible = 1 AND (pmi.label like '%TE_LIST_OJ%' OR pme.menuentry like '%TE_LIST_OJ%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-107" name="Is Mobile Offer Management set up?" returnType="bool">
@@ -1343,8 +1601,29 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI_TABLET'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM sub_config sc
+        INNER JOIN PORTAL_MENUITEM pmi
+        ON sc.configid = pmi.configid and sc.name != 'TE_ISI_TABLET'
+        INNER JOIN PORTAL_MENUENTRY pme
+        ON pmi.menuid = pme.menuid
+        where pmi.visible = 1 AND (pmi.label like '%LIST_PR%' OR pme.menuentry like '%LIST_PR%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-108" name="Is Mobile Order Management set up?" returnType="bool">
@@ -1354,8 +1633,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-109" name="Is Mobile Sales Planning set up?" returnType="bool">
@@ -1365,8 +1645,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-110" name="Do you have reports set up on the Opportunity IA?" returnType="bool">
@@ -1420,8 +1701,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND mi.label like '%_Y1_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (db.name like '%_Y1_%' OR hb.directbuttonname like '%_Y1_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-113" name="Do you have reports set up on samples?" returnType="bool">
@@ -1475,8 +1801,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%sample%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%sample%' OR LOWER(hb.directbuttonname) like '%sample%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-116" name="Do you have reports set up on bids?" returnType="bool">
@@ -1486,8 +1857,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-119" name="Do you have reports set up on properties?" returnType="bool">
@@ -1541,8 +1913,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%_oj_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%_oj_%' OR LOWER(hb.directbuttonname) like '%_oj_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-122" name="Do you have reports set up on offers?" returnType="bool">
@@ -1596,8 +2013,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%_pr_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%_pr_%' OR LOWER(hb.directbuttonname) like '%_pr_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-125" name="Do you have reports set up on orders?" returnType="bool">
@@ -1651,8 +2113,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%_au_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%_au_%' OR LOWER(hb.directbuttonname) like '%_au_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-128" name="Do you have reports set up regarding sales planning?" returnType="bool">
@@ -1706,8 +2213,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%sales%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%sales%' OR LOWER(hb.directbuttonname) like '%sales%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-131" name="Do you have reports set up regarding Key Account Management?" returnType="bool">
@@ -1717,8 +2269,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-134" name="Do you have reports set up on campaigns?" returnType="bool">
@@ -1772,8 +2325,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%_cm_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%_cm_%' OR LOWER(hb.directbuttonname) like '%_cm_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-137" name="Do you have reports set up on leads?" returnType="bool">
@@ -1827,8 +2425,53 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+        SELECT configid, name, 1 AS relative_depth
+        FROM PORTAL_CONFIG
+        WHERE name = 'TE_ISI'
+
+        UNION ALL
+
+        SELECT config.configid, config.name, sc.relative_depth + 1
+        FROM PORTAL_CONFIG config, sub_config sc
+        WHERE config.parentid = sc.configid
+        )
+        SELECT CASE
+        WHEN
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_MENUACTION AS ma
+        ON pr.refid = ma.refid
+        INNER JOIN PORTAL_MENUITEM AS mi
+        ON ma.menuid = mi.menuid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND mi.visible = 1
+        AND LOWER(mi.label) like '%_a034_%'
+        ) > 0 OR
+        (
+        SELECT COUNT(*)
+        FROM sub_config AS sc
+        INNER JOIN PORTAL_PAGEREF AS pr
+        ON sc.configid = pr.configid and sc.name != 'TE_ISI'
+        INNER JOIN PORTAL_DIRECTBUTTONS AS db
+        ON db.refid = pr.refid
+        INNER JOIN PORTAL_HEADER_BUTTONS AS hb
+        ON hb.directbuttonname = db.name
+        INNER JOIN PORTAL_HEADER AS h
+        ON h.headerid = hb.headerid
+        WHERE
+        pr.pagename IN ('ExecuteReport', 'QueryReport')
+        AND (LOWER(db.name) like '%_a034_%' OR LOWER(hb.directbuttonname) like '%_a034_%')
+        ) > 0
+        THEN 1
+        ELSE 0
+        END
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-138" name="Lead 2 Opportunity Conversion Rate" returnType="string">
@@ -1847,8 +2490,19 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+         WITH CTE_A034 AS (
+        SELECT COUNT(*) As TotalLeads,
+        SUM(CASE WHEN NVL(ID_Y1 , 0) != 0
+        THEN 1
+        ELSE 0
+        END) AS LeadsWithoutOpp
+        FROM {tablePrefix}A034
+        )
+        
+        SELECT NVL(CEIL(LeadsWithoutOpp*100/TotalLeads), 0)
+        FROM CTE_A034
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-139" name="Opportunity 2 Deal Conversion Rate" returnType="string">
@@ -1867,8 +2521,19 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        WITH CTE_Y1 AS (
+        SELECT COUNT(*) As TotalOpportunity,
+        SUM(CASE WHEN Status = 2
+        THEN 1
+        ELSE 0
+        END) AS WinOpportunity
+        FROM {tablePrefix}Y1
+        )
+        
+        SELECT NVL(CEIL(WinOpportunity*100/TotalOpportunity), 0)
+        FROM CTE_Y1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-140" name="Average Deal Size" returnType="string">
@@ -1884,8 +2549,15 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="EUR">
+        SELECT NVL(CEIL(AVG(SumProdWert * (CASE WHEN NVL(F4025, 0) = 0
+        THEN 1.0
+        ELSE F4025
+        END)
+        )
+        ), 0)
+        FROM {tablePrefix}Y1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-141" name="Average Deal Time for Closure" returnType="string">
@@ -1902,8 +2574,17 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        WITH CTE_Y1 AS (
+        SELECT TO_DATE(CAST(ABSCHLUSSDAT AS CHAR(8)), 'YYYYMMDD') CompletedDate,
+        TO_DATE(SUBSTR(CAST(NEU AS CHAR(20)), 1, 8), 'YYYYMMDD') SartDate
+        FROM {tablePrefix}Y1
+        WHERE NVL(ABSCHLUSSDAT, 0) != 0
+        )
+        
+        SELECT NVL(AVG(CompletedDate - SartDate), 0)
+        FROM CTE_Y1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-142" name="Average Ticket Time to Closure" returnType="string">
@@ -1921,8 +2602,18 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        WITH CTE_KM AS (
+        SELECT TO_DATE(SUBSTR(CAST(ErstellungsDatum_DT AS CHAR(20)), 1, 8), 'YYYYMMDD') SartDate,
+        TO_DATE(SUBSTR(CAST(ErledigtDatum_DT AS CHAR(20)), 1, 8), 'YYYYMMDD') CompletedDate        
+        FROM {tablePrefix}KM
+        WHERE NVL(ErledigtDatum_DT, 0) != 0 AND NVL(ErstellungsDatum_DT, 0) != 0
+        AND LENGTH(RTRIM(CAST(ErstellungsDatum_DT AS CHAR(20)))) = 17 AND LENGTH(RTRIM(CAST(ErledigtDatum_DT AS CHAR(20)))) = 17
+        )
+        
+        SELECT NVL(AVG(CompletedDate - SartDate), 0)
+        FROM CTE_KM
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-143" name="Service Level Compliance" returnType="string">
@@ -1947,8 +2638,25 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        WITH CTE_KM AS (
+        SELECT TO_DATE(SUBSTR(CAST(FaelligDatum_DT AS CHAR(20)), 1, 8), 'YYYYMMDD') DueDate,
+        TO_DATE(SUBSTR(CAST(ErledigtDatum_DT AS CHAR(20)), 1, 8), 'YYYYMMDD') CompletedDate        
+        FROM {tablePrefix}KM
+        WHERE NVL(ErledigtDatum_DT, 0) != 0 AND NVL(FaelligDatum_DT, 0) != 0
+        AND LENGTH(RTRIM(CAST(FaelligDatum_DT AS CHAR(20)))) = 17 AND LENGTH(RTRIM(CAST(ErledigtDatum_DT AS CHAR(20)))) = 17
+        )
+        
+       SELECT CASE WHEN COUNT(*) = 0
+        THEN 0
+        ELSE
+        CEIL(NVL(SUM(CASE WHEN CompletedDate &lt;= DueDate
+        THEN 1
+        ELSE 0
+        END), 0) *100.0/ COUNT(*))
+        END
+        FROM CTE_KM
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-144" name="Average Campaign Reach" returnType="string">
@@ -1980,8 +2688,32 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">               
+      WITH CTE_AG AS
+        (
+        SELECT ag.ID
+        FROM {tablePrefix}AG ag
+        INNER JOIN {tablePrefix}AK ak
+        ON ag.ID_AK = ak.ID
+        WHERE ak.AktEnde != 0
+        AND TO_DATE(SUBSTR(CAST(ak.AktEnde AS CHAR(20)), 1, 8), 'YYYYMMDD') &lt; SYSTIMESTAMP
+        )
+        , CTE_BR AS
+        (
+        SELECT br.ID
+        FROM {tablePrefix}BR br
+        INNER JOIN {tablePrefix}AK ak
+        ON br.ID_AK = ak.ID
+        WHERE br.Ergebnis in (1,2,7)
+        AND ak.AktEnde != 0
+        AND TO_DATE(SUBSTR(CAST(ak.AktEnde AS CHAR(20)), 1, 8), 'YYYYMMDD') &lt; SYSTIMESTAMP
+        )
+        
+        SELECT CASE WHEN (SELECT COUNT(*) FROM CTE_AG) = 0
+        THEN 0
+        ELSE CEIL(((SELECT COUNT(*) FROM CTE_BR)*100.0)/(SELECT COUNT(*) FROM CTE_AG))
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-145" name="Customer Satisfaction (NPS)" returnType="string">
@@ -1991,8 +2723,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="ACUS-146" name="Lead Generation Effectiveness" returnType="string">
@@ -2025,8 +2756,33 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+                
+WITH CTE_AG AS
+        (
+        SELECT ag.ID
+        FROM {tablePrefix}AG ag
+        INNER JOIN {tablePrefix}AK ak
+        ON ag.ID_AK = ak.ID
+        WHERE ak.AktEnde != 0
+        AND TO_DATE(SUBSTR(CAST(ak.AktEnde AS CHAR(20)), 1, 8), 'YYYYMMDD') &lt; SYSTIMESTAMP
+        )
+        , CTE_BR AS
+        (
+        SELECT br.ID
+        FROM {tablePrefix}BR br
+        INNER JOIN {tablePrefix}AK ak
+        ON br.ID_AK = ak.ID
+        WHERE br.Aktivitat IN (19, 17, 15)
+        AND (br.AktR1 = 1 OR br.AktR2 = 1 OR br.AktR3 = 1 OR br.AktR4 = 1 OR br.AktR5 = 1)
+        AND ak.AktEnde != 0
+        AND  TO_DATE(SUBSTR(CAST(ak.AktEnde AS CHAR(20)), 1, 8), 'YYYYMMDD') &lt; SYSTIMESTAMP
+        )
+        SELECT CASE WHEN (SELECT COUNT(*) FROM CTE_AG) = 0
+        THEN 0
+        ELSE CEIL(((SELECT COUNT(*) FROM CTE_BR)*100.0)/(SELECT COUNT(*) FROM CTE_AG))
+        END FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Company" name="Count Company" returnType="string">
@@ -2036,8 +2792,7 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">SELECT COUNT(*) FROM {tablePrefix}FI</Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Competitor" name="Count Competitor" returnType="string">
@@ -2048,8 +2803,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}FI
+        WHERE Fityp = 3 OR Fityp2 = 3
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Person" name="Count Person" returnType="string">
@@ -2059,8 +2816,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+         SELECT COUNT(*) FROM {tablePrefix}CP
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Relationship" name="Count Relationship" returnType="string">
@@ -2070,8 +2828,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PB
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Activity" name="Count Activity" returnType="string">
@@ -2081,8 +2840,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}MA
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Task" name="Count Task" returnType="string">
@@ -2092,8 +2852,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}A1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Opportunity" name="Count Opportunity" returnType="string">
@@ -2103,8 +2864,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}Y1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Inventory" name="Count Inventory" returnType="string">
@@ -2114,8 +2876,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}B6
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Inventory Control" name="Count Inventory Control" returnType="string">
@@ -2125,8 +2888,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}B7
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Sample" name="Count Sample" returnType="string">
@@ -2137,8 +2901,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+         SELECT COUNT(*) FROM {tablePrefix}AU
+        WHERE AufWert = 0
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Bid" name="Count Bid" returnType="string">
@@ -2148,8 +2914,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT 0 FROM dual
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Property" name="Count Property" returnType="string">
@@ -2159,8 +2926,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}OJ
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Offer" name="Count Offer" returnType="string">
@@ -2170,8 +2938,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PR
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Service Offer" name="Count Service Offer" returnType="string">
@@ -2182,8 +2951,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PR
+        WHERE F5029 = 1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Service Contract Offer" name="Count Service Contract Offer" returnType="string">
@@ -2194,8 +2965,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PR
+        WHERE F5029 = 3
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Service Report" name="Count Service Report" returnType="string">
@@ -2206,8 +2979,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PR
+        WHERE F5029 = 2
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Order" name="Count Order" returnType="string">
@@ -2217,8 +2992,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}AU
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Ticket" name="Count Ticket" returnType="string">
@@ -2228,8 +3004,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}KM
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Installed Base" name="Count Installed Base" returnType="string">
@@ -2239,8 +3016,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}IB
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Campaign" name="Count Campaign" returnType="string">
@@ -2250,8 +3028,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}CM
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Marketing Activity" name="Count Marketing Activity" returnType="string">
@@ -2261,8 +3040,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}AK
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count eMail Marketing Activity" name="Count eMail Marketing Activity" returnType="string">
@@ -2273,8 +3053,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}AK
+        WHERE AktVariante = 2
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Lead" name="Count Lead" returnType="string">
@@ -2284,8 +3066,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}A034
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Event" name="Count Event" returnType="string">
@@ -2296,8 +3079,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}AK
+        WHERE Aktivitat = 14
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Newsletter Campaign" name="Count Newsletter Campaign" returnType="string">
@@ -2308,8 +3093,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}CM
+        WHERE KampTyp = 3
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Document" name="Count Document" returnType="string">
@@ -2319,8 +3106,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}D1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Document Link" name="Count Document Link" returnType="string">
@@ -2330,8 +3118,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}D3
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Item Master" name="Count Item Master" returnType="string">
@@ -2341,8 +3130,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}AR
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Territory Management" name="Count Territory Management" returnType="string">
@@ -2352,8 +3142,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}SD
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Expense" name="Count Expense" returnType="string">
@@ -2363,8 +3154,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}B2
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Key Account" name="Count Key Account" returnType="string">
@@ -2375,8 +3167,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}FI
+        WHERE F5033 = 1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Survey" name="Count Survey" returnType="string">
@@ -2386,8 +3180,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}U1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Invoice" name="Count Invoice" returnType="string">
@@ -2397,8 +3192,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}X1
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Rep" name="Count Rep" returnType="string">
@@ -2408,8 +3204,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}ID
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Login" name="Count Login" returnType="string">
@@ -2419,8 +3216,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}US
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Price List" name="Count Price List" returnType="string">
@@ -2430,8 +3228,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}PL
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Sales Area" name="Count Sales Area" returnType="string">
@@ -2441,8 +3240,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}VB
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Sales Group" name="Count Sales Group" returnType="string">
@@ -2452,8 +3252,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}SB
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Station" name="Count Station" returnType="string">
@@ -2463,8 +3264,9 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}STA
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Number of active users" name="Number of active users" returnType="int">
@@ -2477,8 +3279,12 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(*) FROM {tablePrefix}ID id
+        INNER JOIN {tablePrefix}US us
+        ON id.ID = us.Nr
+        WHERE id.Inaktiv != HEXTORAW(1)
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="CRM Version" name="CRM Version" returnType="string">
@@ -2489,8 +3295,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT version FROM PORTAL_CONFIGVERSION
+        WHERE ConfigName = 'UPDATE_DEFAULT'
+      </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="CRM Template Version" name="CRM Template Version" returnType="string">
@@ -2501,8 +3309,10 @@
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
-      <Query isDesigner="false">select count(*) from {tablePrefix}FI</Query>
+      <Query isDesigner="true" prefix="" postfix="">
+        SELECT textvalue FROM PORTAL_WEBCONFIG_VALUE
+        WHERE name = 'Template.Version'
+      </Query>
     </OracleQueries>
   </Measurement>
 </Measurements>
