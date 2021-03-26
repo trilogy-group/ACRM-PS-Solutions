@@ -8,7 +8,10 @@ namespace ACUS.Shared
         { 
             get 
             { 
-                return "Data Source=" + CRMDataDBInstance + ";Initial Catalog=" + CRMDataDBName + ";User ID=" + CRMDataDBUser + ";Password=" + CRMDataDBPassword;
+                if(SelectedDatabaseType == DatabaseType.Oracle)
+                    return "Data Source=" + CRMDataDBInstance + "/" + CRMDataDBName + ";User ID=" + CRMDataDBUser + ";Password=" + CRMDataDBPassword;
+                else
+                    return "Data Source=" + CRMDataDBInstance + ";Initial Catalog=" + CRMDataDBName + ";User ID=" + CRMDataDBUser + ";Password=" + CRMDataDBPassword;
             }
         }
         public static string DesDBConnectionString 
