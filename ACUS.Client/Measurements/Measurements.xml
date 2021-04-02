@@ -121,7 +121,7 @@
         (SELECT COUNT(Code) FROM {tablePrefix}KA WHERE KatNr = 213 and ExtKey != '' and KatSperre = HEXTORAW(0))
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT CASE WHEN (SELECT * FROM (SELECT TotalRelations
@@ -134,7 +134,7 @@
         ORDER BY TotalRelations) WHERE rownum &lt;= 1) > 50
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -453,10 +453,10 @@
         AND FI.Fityp  = 0
         AND Y1.Upd BETWEEN CAST(TO_CHAR(INTERVAL '-1' year + SYSTIMESTAMP,'YYYYMMDDHHMMSSFF3') as number(19))
         AND CAST(TO_CHAR(systimestamp,'YYYYMMDDHHMMSSFF3') as number(19)))/(SELECT COUNT(*) FROM {tablePrefix}Y1)), 0)
-        FROM dual)
+        FROM DUAL)
         ELSE 0
         END
-        FROM dual
+        FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -503,7 +503,7 @@
         THEN 1
         ELSE 0
         END
-        FROM dual
+        FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -549,7 +549,7 @@
         WHERE XK.DateiKurzk = 'PL') > 0)
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -625,7 +625,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SV) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>      
     </OracleQueries>
   </Measurement>
@@ -699,7 +699,7 @@
         OR pb2.ID_PE = pb1.ID_PE2)) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>      
     </OracleQueries>
   </Measurement>
@@ -961,7 +961,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SD) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -997,7 +997,7 @@
         )) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1043,7 +1043,7 @@
         OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
         THEN 1
         ELSE 0
-        END FROM dual  
+        END FROM DUAL  
       </Query>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT CASE WHEN (SELECT COUNT(*)
@@ -1053,7 +1053,7 @@
         OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT CASE WHEN (SELECT COUNT(*)
@@ -1063,7 +1063,7 @@
         OR Soll_M7 > 0 OR Soll_M8 > 0 OR Soll_M9 > 0 OR Soll_M10 > 0 OR Soll_M11 > 0 OR Soll_M12 > 0)) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1087,7 +1087,7 @@
         AND F5000 = 3) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1155,7 +1155,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}B2) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1173,7 +1173,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}B2 WHERE TAB_GENERIC IN ('MA', 'Y1', 'PR', 'AU')) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1210,7 +1210,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}KM) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1260,7 +1260,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}SE) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1278,7 +1278,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}U000) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1346,7 +1346,7 @@
         SELECT CASE WHEN ((SELECT COUNT(*) FROM {tablePrefix}SI) > 0 AND (SELECT COUNT(*) FROM {tablePrefix}MA) >0)
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1364,7 +1364,7 @@
         SELECT CASE WHEN ((SELECT COUNT(*) FROM {tablePrefix}WR) > 0 AND (SELECT COUNT(*) FROM {tablePrefix}WP) > 0)
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1412,7 +1412,7 @@
         LEFT OUTER JOIN {tablePrefix}AU au
         ON au.ID_PR = pr.ID
         LEFT OUTER JOIN {tablePrefix}IB ib
-        ON ib.ID_AU = au.ID;
+        ON ib.ID_AU = au.ID
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1446,7 +1446,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}FT WHERE FmtTyp=32) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1478,7 +1478,7 @@
         OR (U1.ID_GENERIC = FI.ID AND U1.LinkTyp = 'FI')) >0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1506,7 +1506,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM {tablePrefix}CM WHERE KampTyp = 1) > 0
         THEN 1
         ELSE 0
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1518,7 +1518,7 @@
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="true" prefix="" postfix="">
-        SELECT 0 FROM dual
+        SELECT 0
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1634,7 +1634,7 @@
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="true" prefix="" postfix="">
-        SELECT 0 FROM dual
+        SELECT 0
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1646,7 +1646,7 @@
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="true" prefix="" postfix="">
-        SELECT 0 FROM dual
+        SELECT 0
       </Query>
     </OracleQueries>
   </Measurement>
@@ -1858,7 +1858,7 @@
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="true" prefix="" postfix="">
-        SELECT 0 FROM dual
+        SELECT 0
       </Query>
     </OracleQueries>
   </Measurement>
@@ -2270,7 +2270,7 @@
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="true" prefix="" postfix="">
-        SELECT 0 FROM dual
+        SELECT 0
       </Query>
     </OracleQueries>
   </Measurement>
@@ -2712,7 +2712,7 @@
         SELECT CASE WHEN (SELECT COUNT(*) FROM CTE_AG) = 0
         THEN 0
         ELSE CEIL(((SELECT COUNT(*) FROM CTE_BR)*100.0)/(SELECT COUNT(*) FROM CTE_AG))
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -2781,7 +2781,7 @@ WITH CTE_AG AS
         SELECT CASE WHEN (SELECT COUNT(*) FROM CTE_AG) = 0
         THEN 0
         ELSE CEIL(((SELECT COUNT(*) FROM CTE_BR)*100.0)/(SELECT COUNT(*) FROM CTE_AG))
-        END FROM dual
+        END FROM DUAL
       </Query>
     </OracleQueries>
   </Measurement>
@@ -3163,13 +3163,13 @@ WITH CTE_AG AS
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}FI
-        WHERE F5033 = 1
+        WHERE F5033 = '1'
       </Query>
     </SqlQueries>
     <OracleQueries>
       <Query isDesigner="false" prefix="" postfix="">
         SELECT COUNT(*) FROM {tablePrefix}FI
-        WHERE F5033 = 1
+        WHERE F5033 = '1'
       </Query>
     </OracleQueries>
   </Measurement>

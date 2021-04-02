@@ -7,8 +7,8 @@ namespace ACUS.Shared
         public static string DBConnectionString 
         { 
             get 
-            { 
-                if(SelectedDatabaseType == DatabaseType.Oracle)
+            {
+                if (SelectedDatabaseType == DatabaseType.Oracle)
                     return "Data Source=" + CRMDataDBInstance + "/" + CRMDataDBName + ";User ID=" + CRMDataDBUser + ";Password=" + CRMDataDBPassword;
                 else
                     return "Data Source=" + CRMDataDBInstance + ";Initial Catalog=" + CRMDataDBName + ";User ID=" + CRMDataDBUser + ";Password=" + CRMDataDBPassword;

@@ -75,29 +75,46 @@ namespace ACUS.Server
 
         private object ExecuteQuery(string query, string returnType, bool isDesigner, string prefix, string postfix)
         {
-            object returnValue = null;
-            if (!string.IsNullOrEmpty(query))
+            try
             {
-                query = query.Replace("{tablePrefix}", ACUSConstants.TablePrefix);
-                //query = query.Replace("&lt;", "<");
-                var dt = isDesigner ? desDatabaseHelper.GetDataTable(query) : databaseHelper.GetDataTable(query);
-                if(dt != null && dt.Rows.Count > 0)
+                object returnValue = null;
+                if (!string.IsNullOrEmpty(query))
                 {
-                    if(returnType.Equals("int"))
+                    query = query.Replace("{tablePrefix}", ACUSConstants.TablePrefix);
+                    //query = query.Replace("&lt;", "<");
+                    var dt = isDesigner ? desDatabaseHelper.GetDataTable(query) : databaseHelper.GetDataTable(query);
+                    if (dt != null && dt.Rows.Count > 0)
                     {
-                        returnValue = prefix + dt.Rows[0][0] + postfix;
-                    }
-                    else if(returnType.Equals("bool"))
-                    {
-                        returnValue = Convert.ToBoolean(dt.Rows[0][0]) ? prefix + "Yes" + postfix : "No";
-                    }
-                    else if (returnType.Equals("string"))
-                    {
-                        returnValue = Convert.ToString(dt.Rows[0][0]) == "0" ? "N/A" : prefix + Convert.ToString(dt.Rows[0][0]) + postfix;
+                        if (returnType.Equals("int"))
+                        {
+                            returnValue = prefix + dt.Rows[0][0] + postfix;
+                        }
+                        else if (returnType.Equals("bool"))
+                        {
+                            var boolValue = dt.Rows[0][0];
+
+                            if (!isDesigner && databaseHelper.DatabaseType == DatabaseType.Oracle && boolValue?.ToString() == "X")
+                            {
+                                returnValue = "No";
+                            }
+                            else
+                            {
+                                returnValue = Convert.ToBoolean(boolValue) ? prefix + "Yes" + postfix : "No"; 
+                            }
+                        }
+                        else if (returnType.Equals("string"))
+                        {
+                            returnValue = Convert.ToString(dt.Rows[0][0]) == "0" ? "N/A" : prefix + Convert.ToString(dt.Rows[0][0]) + postfix;
+                        }
                     }
                 }
+                return returnValue;
             }
-            return returnValue;
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         private void InitOutputList()
