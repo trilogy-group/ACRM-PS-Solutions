@@ -2785,6 +2785,27 @@ WITH CTE_AG AS
       </Query>
     </OracleQueries>
   </Measurement>
+  <Measurement exposedName="ACUS-64-1" name="Count of Companies with Opening Hours Configured" returnType="int">
+    <SqlQueries>
+      <Query isDesigner="false" prefix="" postfix="">
+        select count(distinct ID_FI) from {tablePrefix}CT
+        where Vorm_von != 0 and Typ = 0
+      </Query>
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
+    </OracleQueries>
+  </Measurement>
+  <Measurement exposedName="ACUS-64-2" name="Count Sales Planning" returnType="int">
+    <SqlQueries>
+      <Query isDesigner="false" prefix="" postfix="">
+        SELECT COUNT(ID) FROM {tablePrefix}FC
+      </Query>
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
+    </OracleQueries>
+  </Measurement>
   <Measurement exposedName="Count Company" name="Count Company" returnType="string">
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
