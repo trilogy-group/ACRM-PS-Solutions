@@ -2806,6 +2806,80 @@ WITH CTE_AG AS
       <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
     </OracleQueries>
   </Measurement>
+  <Measurement exposedName="ACUS-64-4" name="For which info areas is serial entry configured?" returnType="string">
+    <SqlQueries>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+          SELECT configid, name, 1 AS relative_depth
+          FROM PORTAL_CONFIG
+          WHERE name = 'TE_ISI'
+
+          UNION ALL
+
+          SELECT config.configid, config.name, sc.relative_depth + 1
+          FROM PORTAL_CONFIG config, sub_config sc
+          WHERE config.parentid = sc.configid
+        ),
+        configured_tables AS (
+          SELECT
+            distinct concat(pt.tablename, ' (', pt.og, ')') as InfoAreas,
+            1 as GroupBy
+          FROM sub_config sc
+          INNER JOIN PORTAL_HEADER ph
+          ON sc.configid = ph.configid and sc.name != 'TE_ISI'
+          INNER JOIN PORTAL_HEADERGROUP phg
+          ON phg.headergroupid = ph.headergroupid
+          INNER JOIN PORTAL_TABLE pt
+          ON pt.tableid = phg.tableid
+          INNER JOIN PORTAL_HEADER_BUTTONS phb
+          ON ph.headerid = phb.headerid
+          INNER JOIN PORTAL_DIRECTBUTTONS pdb
+          ON phb.directbuttonname = pdb.name
+          INNER JOIN PORTAL_PAGE_CALLPARAMETERS ppcp
+          ON pdb.refid = ppcp.Refid
+          where ppcp.ParameterName = 'Command' AND ArgValue LIKE '%SerialEntry%'
+        )
+        select string_agg(InfoAreas, ', ') as SerialEntryConfiguredFor from configured_tables
+        group by GroupBy
+      </Query>
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+          SELECT configid, name, 1 AS relative_depth
+          FROM PORTAL_CONFIG
+          WHERE name = 'TE_ISI'
+
+          UNION ALL
+
+          SELECT config.configid, config.name, sc.relative_depth + 1
+          FROM PORTAL_CONFIG config, sub_config sc
+          WHERE config.parentid = sc.configid
+        ),
+        configured_tables AS (
+          SELECT
+            distinct concat(pt.tablename, ' (', pt.og, ')') as InfoAreas,
+            1 as GroupBy
+          FROM sub_config sc
+          INNER JOIN PORTAL_HEADER ph
+          ON sc.configid = ph.configid and sc.name != 'TE_ISI'
+          INNER JOIN PORTAL_HEADERGROUP phg
+          ON phg.headergroupid = ph.headergroupid
+          INNER JOIN PORTAL_TABLE pt
+          ON pt.tableid = phg.tableid
+          INNER JOIN PORTAL_HEADER_BUTTONS phb
+          ON ph.headerid = phb.headerid
+          INNER JOIN PORTAL_DIRECTBUTTONS pdb
+          ON phb.directbuttonname = pdb.name
+          INNER JOIN PORTAL_PAGE_CALLPARAMETERS ppcp
+          ON pdb.refid = ppcp.Refid
+          where ppcp.ParameterName = 'Command' AND ArgValue LIKE '%SerialEntry%'
+        )
+        select string_agg(InfoAreas, ', ') as SerialEntryConfiguredFor from configured_tables
+        group by GroupBy
+      </Query>
+    </OracleQueries>
+  </Measurement>
   <Measurement exposedName="Count Company" name="Count Company" returnType="string">
     <SqlQueries>
       <Query isDesigner="false" prefix="" postfix="">
