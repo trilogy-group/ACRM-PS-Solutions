@@ -2793,7 +2793,10 @@ WITH CTE_AG AS
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
+      <Query isDesigner="false" prefix="" postfix="">
+		  select count(distinct ID_FI) from CT
+		  where Vorm_von != 0 and Typ = 0
+	  </Query>
     </OracleQueries>
   </Measurement>
   <Measurement exposedName="Count Sales Planning" name="Count Sales Planning" returnType="int">
@@ -2803,10 +2806,10 @@ WITH CTE_AG AS
       </Query>
     </SqlQueries>
     <OracleQueries>
-      <Query isDesigner="false" prefix="" postfix="">SELECT 0 FROM dual</Query>
+      <Query isDesigner="false" prefix="" postfix=""> SELECT COUNT(ID) FROM {tablePrefix}FC</Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="ACUS-64-3" name="For which info areas is serial entry configured?" returnType="string">
+  <Measurement exposedName="Do you have reports set-up on tickets" name="Do you have reports set-up on tickets" returnType="string">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
         ;WITH sub_config AS (
