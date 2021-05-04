@@ -21,38 +21,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
+        "MsmKey" = "8:_169C15B88E8A77130E42F7A82EC921A3"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_169C15B88E8A77130E42F7A82EC921A3"
+        "OwnerKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1EA7001C415925095641B84BFA2C2B55"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1EA7001C415925095641B84BFA2C2B55"
+        "OwnerKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
         "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "OwnerKey" = "8:_1EA7001C415925095641B84BFA2C2B55"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "OwnerKey" = "8:_C055571FBFA9164DC245E92B3CF88E02"
+        "OwnerKey" = "8:_88468D3310A4C06CD1EA037C75636D78"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "OwnerKey" = "8:_DFA8DDE483BCA1359B019B2B3E6D11F5"
+        "OwnerKey" = "8:_169C15B88E8A77130E42F7A82EC921A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "OwnerKey" = "8:_9931F3874A72C918D67371EB8C03348A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "OwnerKey" = "8:_62F19FDDF3502269541D25E770210826"
+        "OwnerKey" = "8:_D3D105DA19A926FA10EDE68FC9B8C19D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -65,42 +83,6 @@
         {
         "MsmKey" = "8:_4E8106523A71FAE9ABD458FDF6D1F4A7"
         "OwnerKey" = "8:_241EFC4C586612396D93E15650D0DD5B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4F2F40D802D1CFDB3193DB5A4035F8C4"
-        "OwnerKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4F2F40D802D1CFDB3193DB5A4035F8C4"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62F19FDDF3502269541D25E770210826"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62F19FDDF3502269541D25E770210826"
-        "OwnerKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62F19FDDF3502269541D25E770210826"
-        "OwnerKey" = "8:_C055571FBFA9164DC245E92B3CF88E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_62F19FDDF3502269541D25E770210826"
-        "OwnerKey" = "8:_9931F3874A72C918D67371EB8C03348A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,20 +105,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_902F480F3E174D688A294DC8C4EBEC2A"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_88468D3310A4C06CD1EA037C75636D78"
+        "OwnerKey" = "8:_169C15B88E8A77130E42F7A82EC921A3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9931F3874A72C918D67371EB8C03348A"
+        "MsmKey" = "8:_88468D3310A4C06CD1EA037C75636D78"
         "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9931F3874A72C918D67371EB8C03348A"
-        "OwnerKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
+        "MsmKey" = "8:_902F480F3E174D688A294DC8C4EBEC2A"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -147,14 +129,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C055571FBFA9164DC245E92B3CF88E02"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "MsmKey" = "8:_BF5D6482E8C571CE26EE0CA091A9E7E0"
+        "OwnerKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C055571FBFA9164DC245E92B3CF88E02"
-        "OwnerKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
+        "MsmKey" = "8:_BF5D6482E8C571CE26EE0CA091A9E7E0"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -165,13 +147,31 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DFA8DDE483BCA1359B019B2B3E6D11F5"
-        "OwnerKey" = "8:_9931F3874A72C918D67371EB8C03348A"
+        "MsmKey" = "8:_D3D105DA19A926FA10EDE68FC9B8C19D"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_DFA8DDE483BCA1359B019B2B3E6D11F5"
+        "MsmKey" = "8:_D3D105DA19A926FA10EDE68FC9B8C19D"
+        "OwnerKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3D105DA19A926FA10EDE68FC9B8C19D"
+        "OwnerKey" = "8:_1EA7001C415925095641B84BFA2C2B55"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3D105DA19A926FA10EDE68FC9B8C19D"
+        "OwnerKey" = "8:_169C15B88E8A77130E42F7A82EC921A3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
         "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -189,44 +189,50 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FC1D16C1EDF27467BF0F3379AD6D2A86"
-        "OwnerKey" = "8:_C055571FBFA9164DC245E92B3CF88E02"
+        "MsmKey" = "8:_FF72137971A8F509A01E094A0A55578D"
+        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FC1D16C1EDF27467BF0F3379AD6D2A86"
+        "MsmKey" = "8:_FF72137971A8F509A01E094A0A55578D"
+        "OwnerKey" = "8:_1EA7001C415925095641B84BFA2C2B55"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_824B7FCB77CA4262BAEC823F5829FDB1"
+        "OwnerKey" = "8:_D88333CD33ABF63D74EF8D674B80E2D1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1F69F0950AA108C476AFAA4ECC169A05"
+        "OwnerKey" = "8:_BF5D6482E8C571CE26EE0CA091A9E7E0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4F2F40D802D1CFDB3193DB5A4035F8C4"
+        "OwnerKey" = "8:_FF72137971A8F509A01E094A0A55578D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FC1D16C1EDF27467BF0F3379AD6D2A86"
+        "OwnerKey" = "8:_88468D3310A4C06CD1EA037C75636D78"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DFA8DDE483BCA1359B019B2B3E6D11F5"
+        "OwnerKey" = "8:_7D27C8E704A16424216B28C77F58EE61"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -257,12 +263,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D1B8A455190FA831E322CBE6641528A8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7D27C8E704A16424216B28C77F58EE61"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -401,20 +401,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1F69F0950AA108C476AFAA4ECC169A05"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_169C15B88E8A77130E42F7A82EC921A3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ACUS.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:LiteX DbHelper Oracle, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1F69F0950AA108C476AFAA4ECC169A05"
+                    "_169C15B88E8A77130E42F7A82EC921A3"
                     {
-                    "Name" = "8:ACUS.Server.dll"
+                    "Name" = "8:LiteX DbHelper Oracle.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:ACUS.Server.dll"
+            "SourcePath" = "8:LiteX DbHelper Oracle.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1EA7001C415925095641B84BFA2C2B55"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:LiteX DbHelper SqlServer, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1EA7001C415925095641B84BFA2C2B55"
+                    {
+                    "Name" = "8:LiteX DbHelper SqlServer.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:LiteX DbHelper SqlServer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
@@ -494,68 +525,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F2F40D802D1CFDB3193DB5A4035F8C4"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ACUS.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4F2F40D802D1CFDB3193DB5A4035F8C4"
-                    {
-                    "Name" = "8:ACUS.Shared.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ACUS.Shared.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_62F19FDDF3502269541D25E770210826"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LiteX DbHelper Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_62F19FDDF3502269541D25E770210826"
-                    {
-                    "Name" = "8:LiteX DbHelper Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:LiteX DbHelper Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_739616AE012F48548C660B5F9B4DDAF8"
             {
             "SourcePath" = "8:..\\ACUS.Client\\Results\\TestResult.txt"
@@ -607,6 +576,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_88468D3310A4C06CD1EA037C75636D78"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Oracle.ManagedDataAccess, Version=2.0.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_88468D3310A4C06CD1EA037C75636D78"
+                    {
+                    "Name" = "8:Oracle.ManagedDataAccess.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Oracle.ManagedDataAccess.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_902F480F3E174D688A294DC8C4EBEC2A"
             {
             "SourcePath" = "8:..\\ACUS.Client\\Measurements\\Measurements.xml"
@@ -625,37 +625,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9931F3874A72C918D67371EB8C03348A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LiteX DbHelper Oracle, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_9931F3874A72C918D67371EB8C03348A"
-                    {
-                    "Name" = "8:LiteX DbHelper Oracle.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:LiteX DbHelper Oracle.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A91FF4DDD273479D76EEB96F716A8FEC"
@@ -689,20 +658,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C055571FBFA9164DC245E92B3CF88E02"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BF5D6482E8C571CE26EE0CA091A9E7E0"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LiteX DbHelper SqlServer, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ACUS.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C055571FBFA9164DC245E92B3CF88E02"
+                    "_BF5D6482E8C571CE26EE0CA091A9E7E0"
                     {
-                    "Name" = "8:LiteX DbHelper SqlServer.dll"
+                    "Name" = "8:ACUS.Shared.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:LiteX DbHelper SqlServer.dll"
+            "SourcePath" = "8:ACUS.Shared.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
@@ -751,20 +720,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DFA8DDE483BCA1359B019B2B3E6D11F5"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D3D105DA19A926FA10EDE68FC9B8C19D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Oracle.ManagedDataAccess, Version=2.0.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:LiteX DbHelper Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DFA8DDE483BCA1359B019B2B3E6D11F5"
+                    "_D3D105DA19A926FA10EDE68FC9B8C19D"
                     {
-                    "Name" = "8:Oracle.ManagedDataAccess.dll"
+                    "Name" = "8:LiteX DbHelper Core.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Oracle.ManagedDataAccess.dll"
+            "SourcePath" = "8:LiteX DbHelper Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D88333CD33ABF63D74EF8D674B80E2D1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ACUS.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D88333CD33ABF63D74EF8D674B80E2D1"
+                    {
+                    "Name" = "8:ACUS.Server.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ACUS.Server.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D15D8B37E6F8494E9022C23037CC2BF0"
@@ -822,14 +822,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FC1D16C1EDF27467BF0F3379AD6D2A86"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FF72137971A8F509A01E094A0A55578D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_FC1D16C1EDF27467BF0F3379AD6D2A86"
+                    "_FF72137971A8F509A01E094A0A55578D"
                     {
                     "Name" = "8:System.Data.SqlClient.dll"
                     "Attributes" = "3:512"
@@ -932,7 +932,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ACUS.Setup"
         "ProductCode" = "8:{4769990E-9B87-410C-A027-56726F820769}"
-        "PackageCode" = "8:{E644E572-A4A2-41E9-99D4-CBA5D69644FE}"
+        "PackageCode" = "8:{5F407DE4-A93C-4BCC-A5D4-C558929160D3}"
         "UpgradeCode" = "8:{AF5087F4-A2C3-48EA-AA76-DFEE9E296CA6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
