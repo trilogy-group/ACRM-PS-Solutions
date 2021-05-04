@@ -2809,7 +2809,7 @@ WITH CTE_AG AS
       <Query isDesigner="false" prefix="" postfix=""> SELECT COUNT(ID) FROM {tablePrefix}FC</Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="Do you have reports set-up on tickets" name="Do you have reports set-up on tickets" returnType="string">
+  <Measurement exposedName="Do you have reports set-up on tickets" name="Do you have reports set-up on tickets" returnType="bool">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
         ;WITH sub_config AS (
@@ -2909,7 +2909,7 @@ WITH CTE_AG AS
       </Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="ACUS-64-4" name="For which info areas is serial entry configured?" returnType="string">
+  <Measurement exposedName="For which info areas is serial entry configured?" name="For which info areas is serial entry configured?" returnType="string">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
         ;WITH sub_config AS (
@@ -2983,7 +2983,7 @@ WITH CTE_AG AS
       </Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="ACUS-64-4-1" name="Is Serial Entry configured for order?" returnType="bool">
+  <Measurement exposedName="Is Serial Entry configured for order?" name="Is Serial Entry configured for order?" returnType="bool">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
         ;WITH sub_config AS (
@@ -3035,7 +3035,7 @@ end
       </Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="ACUS-64-4-2" name="Is Serial Entry configured for offer?" returnType="bool">
+  <Measurement exposedName="Is Serial Entry configured for offer?" name="Is Serial Entry configured for offer?" returnType="bool">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
         ;WITH sub_config AS (
