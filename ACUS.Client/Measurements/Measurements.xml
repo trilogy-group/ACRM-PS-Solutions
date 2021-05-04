@@ -3513,58 +3513,6 @@ WITH CTE_AG AS
       </Query>
     </OracleQueries>
   </Measurement>
-  <Measurement exposedName="Is Serial Entry configured for order?" name="Is Serial Entry configured for order?" returnType="bool">
-    <SqlQueries>
-      <Query isDesigner="true" prefix="" postfix="">
-        ;WITH sub_config AS (
-	SELECT configid, name, 1 AS relative_depth
-	FROM PORTAL_CONFIG
-	WHERE name = 'TE_ISI'
-	
-	UNION ALL
-	
-	SELECT config.configid, config.name, sc.relative_depth + 1
-	FROM PORTAL_CONFIG config, sub_config sc
-	WHERE config.parentid = sc.configid
-)
-select case when (select count(*) from sub_config as sc
-join PORTAL_MENUITEM as mi
-on mi.configid = sc.configid and sc.name != 'TE_ISI'
-join PORTAL_MENUENTRY as me
-on me.menuid = mi.menuid
-where me.menuentry = 'A_SerialEntryUP'
-) > 0
-then 1
-else 0
-end
-      </Query>
-    </SqlQueries>
-    <OracleQueries>
-      <Query isDesigner="true" prefix="" postfix="">
-        ;WITH sub_config AS (
-	SELECT configid, name, 1 AS relative_depth
-	FROM PORTAL_CONFIG
-	WHERE name = 'TE_ISI'
-	
-	UNION ALL
-	
-	SELECT config.configid, config.name, sc.relative_depth + 1
-	FROM PORTAL_CONFIG config, sub_config sc
-	WHERE config.parentid = sc.configid
-)
-select case when (select count(*) from sub_config as sc
-join PORTAL_MENUITEM as mi
-on mi.configid = sc.configid and sc.name != 'TE_ISI'
-join PORTAL_MENUENTRY as me
-on me.menuid = mi.menuid
-where me.menuentry = 'A_SerialEntryUP'
-) > 0
-then 1
-else 0
-end
-      </Query>
-    </OracleQueries>
-  </Measurement>
   <Measurement exposedName="Is Serial Entry configured for offer?" name="Is Serial Entry configured for offer?" returnType="bool">
     <SqlQueries>
       <Query isDesigner="true" prefix="" postfix="">
@@ -3617,4 +3565,57 @@ end
       </Query>
     </OracleQueries>
   </Measurement>
+<Measurement exposedName="Is Serial Entry configured for order?" name="Is Serial Entry configured for order?" returnType="bool">
+    <SqlQueries>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+	SELECT configid, name, 1 AS relative_depth
+	FROM PORTAL_CONFIG
+	WHERE name = 'TE_ISI'
+	
+	UNION ALL
+	
+	SELECT config.configid, config.name, sc.relative_depth + 1
+	FROM PORTAL_CONFIG config, sub_config sc
+	WHERE config.parentid = sc.configid
+)
+select case when (select count(*) from sub_config as sc
+join PORTAL_MENUITEM as mi
+on mi.configid = sc.configid and sc.name != 'TE_ISI'
+join PORTAL_MENUENTRY as me
+on me.menuid = mi.menuid
+where me.menuentry = 'A_SerialEntryUP'
+) > 0
+then 1
+else 0
+end
+      </Query>
+    </SqlQueries>
+    <OracleQueries>
+      <Query isDesigner="true" prefix="" postfix="">
+        ;WITH sub_config AS (
+	SELECT configid, name, 1 AS relative_depth
+	FROM PORTAL_CONFIG
+	WHERE name = 'TE_ISI'
+	
+	UNION ALL
+	
+	SELECT config.configid, config.name, sc.relative_depth + 1
+	FROM PORTAL_CONFIG config, sub_config sc
+	WHERE config.parentid = sc.configid
+)
+select case when (select count(*) from sub_config as sc
+join PORTAL_MENUITEM as mi
+on mi.configid = sc.configid and sc.name != 'TE_ISI'
+join PORTAL_MENUENTRY as me
+on me.menuid = mi.menuid
+where me.menuentry = 'A_SerialEntryUP'
+) > 0
+then 1
+else 0
+end
+      </Query>
+    </OracleQueries>
+  </Measurement>
+ 
 </Measurements>
